@@ -1,23 +1,4 @@
-# Dependencies
 node_modules/
-
-# Build output
 dist/
-
-# Vite cache
-.vite/
-
-# OS files
 .DS_Store
-
-# Local env files
-.env
-.env.local
-.env.*.local
-
-# Editor directories
-.idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
+*.local
