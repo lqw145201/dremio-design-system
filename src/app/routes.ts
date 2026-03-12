@@ -3,11 +3,16 @@
 
 import { createBrowserRouter } from "react-router";
 import { AIAgentPage } from "./pages/AIAgentPage";
+import { OrgSettingsPage } from "./pages/OrgSettingsPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: AIAgentPage,
+  },
+  {
+    path: "/settings/cost-management",
+    Component: OrgSettingsPage,
   },
   {
     path: "*",

@@ -45,7 +45,8 @@ function NavItem({ icon, label, active, hasBackground, bgColor }: NavItemProps) 
           backgroundColor: hasBackground ? bgColor : "transparent",
         }}
       >
-        <div className="relative shrink-0 size-[24px]">
+        {/* flex container — icon is sized naturally; no forced square that distorts proportions */}
+        <div className="flex items-center justify-center shrink-0 size-[24px]">
           {icon}
         </div>
       </div>
@@ -71,89 +72,63 @@ export function LeftNav() {
       <div className="flex flex-col gap-[8px] items-center shrink-0 w-full">
         <Logo />
         <div className="flex flex-col gap-[16px] items-center w-full">
-          {/* Home */}
+          {/* Home — viewBox 18×19.49, render at natural proportions */}
           <NavItem
             label="Home"
-            icon={
-              <div className="absolute inset-[8.34%_12.5%_10.43%_12.5%]">
-                <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 18 19.4945">
-                  <path d={svgPaths.p156b49c0} fill="var(--secondary-foreground)" />
-                </svg>
-              </div>
-            }
+            icon={<svg fill="none" viewBox="0 0 18 19.4945" width="18" height="19">
+              <path d={svgPaths.p156b49c0} fill="var(--secondary-foreground)" />
+            </svg>}
           />
-          {/* AI Agent - active */}
+          {/* AI Agent - active — viewBox ~20×20 */}
           <NavItem
             label="AI Agent"
             active
             hasBackground
             bgColor="rgba(33, 132, 128, 0.1)"
-            icon={
-              <div className="absolute inset-[8.33%_8.33%_8.73%_8.73%]">
-                <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 19.9067 19.9056">
-                  <path d={svgPaths.p3d8e2800} fill="var(--accent)" />
-                </svg>
-              </div>
-            }
+            icon={<svg fill="none" viewBox="0 0 19.9067 19.9056" width="20" height="20">
+              <path d={svgPaths.p3d8e2800} fill="var(--accent)" />
+            </svg>}
           />
-          {/* Catalog */}
+          {/* Catalog — viewBox 20×16, wider than tall */}
           <NavItem
             label="Catalog"
-            icon={
-              <div className="absolute inset-[16.67%_8.33%]">
-                <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 16">
-                  <path clipRule="evenodd" d={svgPaths.p37aae100} fill="var(--secondary-foreground)" fillRule="evenodd" />
-                </svg>
-              </div>
-            }
+            icon={<svg fill="none" viewBox="0 0 20 16" width="20" height="16">
+              <path clipRule="evenodd" d={svgPaths.p37aae100} fill="var(--secondary-foreground)" fillRule="evenodd" />
+            </svg>}
           />
-          {/* SQL */}
+          {/* SQL — viewBox 20×16 */}
           <NavItem
             label="SQL"
-            icon={
-              <div className="absolute inset-[16.67%_8.33%]">
-                <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 16">
-                  <path d={svgPaths.p35ae5e80} fill="var(--secondary-foreground)" />
-                  <path d={svgPaths.p90a2780} fill="var(--secondary-foreground)" />
-                  <path clipRule="evenodd" d={svgPaths.p350c4d00} fill="var(--secondary-foreground)" fillRule="evenodd" />
-                </svg>
-              </div>
-            }
+            icon={<svg fill="none" viewBox="0 0 20 16" width="20" height="16">
+              <path d={svgPaths.p35ae5e80} fill="var(--secondary-foreground)" />
+              <path d={svgPaths.p90a2780} fill="var(--secondary-foreground)" />
+              <path clipRule="evenodd" d={svgPaths.p350c4d00} fill="var(--secondary-foreground)" fillRule="evenodd" />
+            </svg>}
           />
-          {/* Semantic Layer */}
+          {/* Semantic Layer — viewBox ~20×20 */}
           <NavItem
             label="Sematic Layer"
-            icon={
-              <div className="absolute inset-[8.3%_8.33%_8.32%_8.33%]">
-                <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 19.9996 20.0119">
-                  <path d={svgPaths.p2876bf70} fill="var(--secondary-foreground)" />
-                </svg>
-              </div>
-            }
+            icon={<svg fill="none" viewBox="0 0 19.9996 20.0119" width="20" height="20">
+              <path d={svgPaths.p2876bf70} fill="var(--secondary-foreground)" />
+            </svg>}
           />
-          {/* Admin */}
+          {/* Admin — viewBox 18.72×19.5 */}
           <NavItem
             label="Admin"
-            icon={
-              <div className="absolute inset-[9.38%_10.99%_9.38%_11%]">
-                <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 18.7241 19.4995">
-                  <path d={svgPaths.p1258cf0} fill="var(--secondary-foreground)" />
-                </svg>
-              </div>
-            }
+            icon={<svg fill="none" viewBox="0 0 18.7241 19.4995" width="19" height="19">
+              <path d={svgPaths.p1258cf0} fill="var(--secondary-foreground)" />
+            </svg>}
           />
         </div>
       </div>
       {/* Bottom section */}
       <div className="flex flex-col gap-[4px] items-center pb-[8px] px-[8px] w-full">
-        {/* Help */}
+        {/* Help — viewBox 20×20 */}
         <div className="flex items-center justify-center p-[4px]">
-          <div className="relative shrink-0 size-[24px]">
-            <div className="absolute inset-[8.33%]">
-              <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
-                <path d={svgPaths.pd9a5200} fill="var(--secondary-foreground)" />
-              </svg>
-            </div>
+          <div className="flex items-center justify-center shrink-0 size-[24px]">
+            <svg fill="none" viewBox="0 0 20 20" width="20" height="20">
+              <path d={svgPaths.pd9a5200} fill="var(--secondary-foreground)" />
+            </svg>
           </div>
         </div>
         {/* Avatar */}
@@ -170,14 +145,12 @@ export function LeftNav() {
             </div>
           </div>
         </div>
-        {/* Expand menu */}
+        {/* Expand menu — viewBox 20×16, wider than tall */}
         <div className="flex items-center justify-center p-[4px]">
-          <div className="relative shrink-0 size-[24px]">
-            <div className="absolute inset-[16.67%_8.33%]">
-              <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 16">
-                <path d={svgPaths.p27c55880} fill="var(--secondary-foreground)" />
-              </svg>
-            </div>
+          <div className="flex items-center justify-center shrink-0 size-[24px]">
+            <svg fill="none" viewBox="0 0 20 16" width="20" height="16">
+              <path d={svgPaths.p27c55880} fill="var(--secondary-foreground)" />
+            </svg>
           </div>
         </div>
       </div>

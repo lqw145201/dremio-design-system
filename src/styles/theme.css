@@ -49,6 +49,8 @@
   --destructive: rgba(202, 63, 50, 1);
   /* The default color for text or elements that appear on top of destructive colored elements. */
   --destructive-foreground: rgba(255, 255, 255, 1);
+  /* The hover background color for destructive/danger buttons. */
+  --destructive-hover: rgba(173, 48, 33, 1);
   /* The default border color for elements such as inputs, buttons, and other containers. */
   --border: rgba(210, 214, 218, 1);
   /* The default background color for input fields once the text has been filled. Should be either transparent or match the input-background. */
@@ -118,6 +120,7 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-destructive-hover: var(--destructive-hover);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-input-background: var(--input-background);
