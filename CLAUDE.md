@@ -8,10 +8,26 @@
 - All colors via CSS tokens from `src/styles/theme.css` — never hardcode hex
 
 ## Figma MCP Workflow (Required for Every Component)
-1. `get_design_context` on the Figma node — never assume dimensions from memory
-2. `get_screenshot` for visual reference of the exact variant
-3. Implement using this project's tokens and component imports — not raw Figma output
-4. Validate rendered result against screenshot before marking complete
+
+### Step 1 — Map the full page hierarchy BEFORE writing any code
+Call `get_figma_data` (or `get_design_context`) on the **page-level node** first. Read every named child component in the returned tree. Build a mental map of:
+- Which components exist and where they sit in the layout
+- What each component's **name** tells you about its responsibility
+- Which children belong to which parent
+
+Do not write a single line of implementation until this map is complete.
+
+### Step 2 — Read each named component individually
+For every component identified in Step 1, call `get_design_context` / `get_figma_data` on it directly. Confirm:
+- Exact dimensions (`width`, `height`, `padding`, `gap`)
+- What children it contains (icons, buttons, inputs, labels)
+- Background, border, and color fills from the style tokens
+
+### Step 3 — Implement using project tokens, not Figma raw values
+Map Figma fill/stroke values back to `src/styles/theme.css` tokens. Never hardcode hex.
+
+### Step 4 — Validate against screenshot
+Call `get_screenshot` on the Figma node, then compare the rendered result before marking complete.
 
 **Figma file:** `https://www.figma.com/design/P2EhSAF4LQfhYQEIiyltan/`
 
@@ -22,8 +38,22 @@
 | Page Headers docs | `11659:6606` |
 | Secondary nav module | `35:1429` |
 | Secondary nav full | `36:2383` |
+| SQL Runner sample page | `7978:139494` |
+| SQL Runner main section | `7978:139501` |
+| SQL Runner left panel | `1432:22494` |
+| SQL Runner action header | `1432:21801` |
+| SQL Runner tab bar | `7178:58497` |
+| Nav/Top Nav | `12337:132404` |
 
 **⚠️ Never hand-build a component that exists in the Figma design system.** Always call `get_design_context` first. Approximations always produce wrong dimensions, spacing, and interaction states.
+
+### Component name = content contract
+A component's Figma name defines exactly what belongs inside it. Never add elements based on intuition:
+- `Nav/Top Nav` → project context dropdown + search bar + AI agent button. Nothing else (no Run/Preview buttons, no engine selector).
+- `Example/SQLRunner Action Header` → Run + Preview + Engine + Hide SQL pane + Settings/Privilege + Save as view. Not in the top nav.
+- `SQLRunner/Tab module` → label text + close icon only. No leading icon unless the Figma component explicitly shows one.
+
+**If you think an element "belongs" somewhere but haven't verified it in Figma — you're guessing. Stop and read Figma first.**
 
 ## Design Tokens (`src/styles/theme.css`)
 
@@ -154,3 +184,8 @@ Always `get_design_context` on Table before building — never hand-build `<thea
 8. cva variant hover: edit `button.tsx` directly, never override via `className`
 9. Always `get_design_context` before building any component — never approximate from memory
 10. All icons exist in `src/app/components/icons/` — check there before anything else
+11. **Read the page node first, then each child component.** Never start coding until the full hierarchy is mapped from Figma.
+12. **Never place UI elements by intuition.** Run/Preview/Engine controls belong in the Action Header, not the Top Nav. Verify every element's home by reading its parent component in Figma.
+13. **Never guess icon names for a component.** Read the component's children in Figma to see exactly which icon slot is used. If `with icon` is `false` or no icon child is present — there is no icon.
+14. **Never use UI design tokens for code syntax colors.** `--primary` (`#43B8C9`), `--accent`, `--destructive` etc. are for UI chrome only. SQL/code editors must use a standard code-editor palette (e.g. keywords `#0033B3`, strings `#067D17`, functions `#7A3E9D`) that does not clash with Dremio brand colors.
+15. **Component name is the source of truth for its contents.** If a Figma component is named `Nav/Top Nav`, read what's actually inside it — don't assume based on the word "nav" or general product knowledge.
