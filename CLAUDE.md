@@ -173,6 +173,12 @@ Always `get_design_context` on Table before building — never hand-build `<thea
 </tr>
 ```
 
+## Changelog Rule
+**Every significant change must be recorded in `CHANGELOG.md`** (newest entry at the top).
+Each entry must include: date · author · what changed · why it was changed.
+This applies to: new pages, new components, design rule updates, bug fixes, and any structural refactor.
+Claude Code is responsible for adding the entry in the same commit as the change.
+
 ## Critical Rules (Top Mistakes)
 1. `--muted-foreground` for placeholders/disabled ONLY — everything else → `--secondary-foreground`
 2. No card chrome (border/radius/shadow/margin) on full-page layouts
