@@ -5,6 +5,20 @@ Format: **Date · Author · What · Why**
 
 ---
 
+## 2026-03-14 · @diogoluxo + Claude Code
+
+### Scaffold all missing Figma components locally — 50 stub files
+**What changed**
+- Created 50 new component stub files matching every Figma component that had no local counterpart
+- Organized into 4 new directories: `sql-runner/` (22 components), `privileges/` (9), `catalog/` (5), `form/` (7), plus 7 page-level components
+- Added complete Figma Component → Local File mapping table to CLAUDE.md (70 entries)
+- Updated CLAUDE.md "Project Stack & Component Locations" section with all new directories
+
+**Why**
+Audit via Figma REST API revealed 50 UI components defined in the Figma design system with no local file. Adding stubs ensures the AI agent can find the correct file for every Figma component, and each stub's JSDoc comment references the Figma source page for future implementation.
+
+---
+
 ## 2026-03-12 · @lqw145201 + Claude Code
 
 ### CLAUDE.md — Stronger Figma workflow rules

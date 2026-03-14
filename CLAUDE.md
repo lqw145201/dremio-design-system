@@ -5,6 +5,11 @@
 - **Icons (106 Dremio icons):** `src/app/components/icons/` — check here first, never install new icon packages
 - **UI primitives:** `src/app/components/ui/` (Button, Table, Badge, etc.)
 - **Pages:** `src/app/pages/` | **Components:** `src/app/components/`
+- **SQL Runner components:** `src/app/components/sql-runner/` (ActionHeader, TabBar, ResultSection, EngineSelection, AutocompleteDropdown/Menu, DatasetListItem, FunctionCategory/ListItem/Section, JobTab, MetadataCard, ResultActionBar, ScriptListItem/TabItem, SortControl, TabModule, WikiPanelLarge/Small, AddTabMenu, SQLStatementSample)
+- **Privileges components:** `src/app/components/privileges/` (PrivilegesTable, AddUserField, Cell, Header, OwnershipPanel/Row, PermissionRow/Toggle, UserRoleList)
+- **Catalog components:** `src/app/components/catalog/` (DataSourceMenu, AddDataSourceModule, LeftPanelModule, LeftPanelSections, UploadFile)
+- **Form components:** `src/app/components/form/` (Chip, HeaderFooter, HelpText, SectionTitle, FormFieldCheckbox/Text/Toggle)
+- **Page-level components:** `src/app/components/` (PageHeader, PageSummary, SummaryModule, SecondaryNav, SecondaryNavModule, CodeBlock, DatabaseHeader)
 - All colors via CSS tokens from `src/styles/theme.css` — never hardcode hex
 
 ## Figma MCP Workflow (Required for Every Component)
@@ -46,6 +51,83 @@ Call `get_screenshot` on the Figma node, then compare the rendered result before
 | Nav/Top Nav | `12337:132404` |
 
 **⚠️ Never hand-build a component that exists in the Figma design system.** Always call `get_design_context` first. Approximations always produce wrong dimensions, spacing, and interaction states.
+
+### Figma Component → Local File Map
+
+| Figma Component | Local File |
+|---|---|
+| `Nav/Top Nav` | `src/app/components/TopNav.tsx` |
+| `Nav/Left Nav` | `src/app/components/LeftNav.tsx` |
+| `Nav/Secondary nav` | `src/app/components/SecondaryNav.tsx` |
+| `Nav/Nav/Secondary nav module` | `src/app/components/SecondaryNavModule.tsx` |
+| `Page Header` | `src/app/components/PageHeader.tsx` |
+| `Example/Page Summary` | `src/app/components/PageSummary.tsx` |
+| `Summary module` | `src/app/components/SummaryModule.tsx` |
+| `Code block` | `src/app/components/CodeBlock.tsx` |
+| `Database/Header` | `src/app/components/DatabaseHeader.tsx` |
+| `Example/SQLRunner Action Header` | `src/app/components/sql-runner/ActionHeader.tsx` |
+| `Example/SQLRunner Engine Selection` | `src/app/components/sql-runner/EngineSelection.tsx` |
+| `Example/SQLRunner Result Section` | `src/app/components/sql-runner/ResultSection.tsx` |
+| `Example/SQLRunner Statement` | `src/app/components/sql-runner/Statement.tsx` |
+| `Example/SQLRunner Tab Bar` | `src/app/components/sql-runner/TabBar.tsx` |
+| `Example/SQLRunner Left Panel` | `src/app/components/CatalogPanel.tsx` |
+| `Example/SQLRunner Main Section` | `src/app/pages/SQLRunnerPage.tsx` |
+| `SQLRunner/Autocomplete Dropdown` | `src/app/components/sql-runner/AutocompleteDropdown.tsx` |
+| `SQLRunner/Autocomplete Menu` | `src/app/components/sql-runner/AutocompleteMenu.tsx` |
+| `SQLRunner/Dataset List Item` | `src/app/components/sql-runner/DatasetListItem.tsx` |
+| `SQLRunner/Function Category` | `src/app/components/sql-runner/FunctionCategory.tsx` |
+| `SQLRunner/Function List Item` | `src/app/components/sql-runner/FunctionListItem.tsx` |
+| `SQLRunner/Function Section` | `src/app/components/sql-runner/FunctionSection.tsx` |
+| `SQLRunner/Job Tab` | `src/app/components/sql-runner/JobTab.tsx` |
+| `SQLRunner/Metadata Card` | `src/app/components/sql-runner/MetadataCard.tsx` |
+| `SQLRunner/Result Action Bar` | `src/app/components/sql-runner/ResultActionBar.tsx` |
+| `SQLRunner/Script List Item` | `src/app/components/sql-runner/ScriptListItem.tsx` |
+| `SQLRunner/Script Tab Item` | `src/app/components/sql-runner/ScriptTabItem.tsx` |
+| `SQLRunner/Sort Control` | `src/app/components/sql-runner/SortControl.tsx` |
+| `SQLRunner/Tab module` | `src/app/components/sql-runner/TabModule.tsx` |
+| `SQLRunner/Wiki Panel Large` | `src/app/components/sql-runner/WikiPanelLarge.tsx` |
+| `SQLRunner/Wiki Panel Small` | `src/app/components/sql-runner/WikiPanelSmall.tsx` |
+| `SQLRunner/Add Tab Menu module` | `src/app/components/sql-runner/AddTabMenu.tsx` |
+| `SQL Statement sample` | `src/app/components/sql-runner/SQLStatementSample.tsx` |
+| `Example/Privileges Table` | `src/app/components/privileges/PrivilegesTable.tsx` |
+| `Privileges/Add User Field` | `src/app/components/privileges/AddUserField.tsx` |
+| `Privileges/Cell` | `src/app/components/privileges/Cell.tsx` |
+| `Privileges/Header` | `src/app/components/privileges/Header.tsx` |
+| `Privileges/Ownership Panel` | `src/app/components/privileges/OwnershipPanel.tsx` |
+| `Privileges/Ownership Row` | `src/app/components/privileges/OwnershipRow.tsx` |
+| `Privileges/Permission Row` | `src/app/components/privileges/PermissionRow.tsx` |
+| `Privileges/Permission Toggle` | `src/app/components/privileges/PermissionToggle.tsx` |
+| `Privileges/User Role List` | `src/app/components/privileges/UserRoleList.tsx` |
+| `Data Source Menu` | `src/app/components/catalog/DataSourceMenu.tsx` |
+| `Open Catalog/Add Data Source module` | `src/app/components/catalog/AddDataSourceModule.tsx` |
+| `Open Catalog/Left Panel module` | `src/app/components/catalog/LeftPanelModule.tsx` |
+| `Open Catalog/Left Panel sections` | `src/app/components/catalog/LeftPanelSections.tsx` |
+| `Open Catalog/upload file` | `src/app/components/catalog/UploadFile.tsx` |
+| `Form/Chip` | `src/app/components/form/Chip.tsx` |
+| `Form/Header Footer` | `src/app/components/form/HeaderFooter.tsx` |
+| `Form/Help Text` | `src/app/components/form/HelpText.tsx` |
+| `Form/Section Title` | `src/app/components/form/SectionTitle.tsx` |
+| `Example/Form Field — Checkbox` | `src/app/components/form/FormFieldCheckbox.tsx` |
+| `Example/Form Field — Text` | `src/app/components/form/FormFieldText.tsx` |
+| `Example/Form Field — Toggle` | `src/app/components/form/FormFieldToggle.tsx` |
+| `Button` | `src/app/components/ui/button.tsx` |
+| `Example/Dialog` | `src/app/components/ui/dialog.tsx` |
+| `Example/Form` | `src/app/components/ui/form.tsx` |
+| `Form/Input Field` | `src/app/components/ui/input.tsx` |
+| `Form/Field Label` | `src/app/components/ui/label.tsx` |
+| `Form/Dropdown menu` | `src/app/components/ui/dropdown-menu.tsx` |
+| `Input/Checkbox` | `src/app/components/ui/checkbox.tsx` |
+| `Input/Date Picker` | `src/app/components/ui/calendar.tsx` |
+| `Input/Radio Button` | `src/app/components/ui/radio-group.tsx` |
+| `Input/Segment Control` | `src/app/components/ui/toggle-group.tsx` |
+| `Input/Toggle` | `src/app/components/ui/switch.tsx` |
+| `Example/Table` | `src/app/components/ui/table.tsx` |
+| `Table/Content Status` | `src/app/components/ui/badge.tsx` |
+| `Message Bar` | `src/app/components/ui/alert.tsx` |
+| `Tooltip` | `src/app/components/ui/tooltip.tsx` |
+| `Scrollbar` | `src/app/components/ui/scroll-area.tsx` |
+| `hairline, dividers` | `src/app/components/ui/separator.tsx` |
+| `tab component` | `src/app/components/ui/tabs.tsx` |
 
 ### Component name = content contract
 A component's Figma name defines exactly what belongs inside it. Never add elements based on intuition:
