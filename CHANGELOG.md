@@ -5,6 +5,91 @@ Format: **Date · Author · What · Why**
 
 ---
 
+## 2026-03-15 · @diogoluxo + Claude Code
+
+### Semantic Layer page — Implement from Figma (node `162:87985`) at `/semantic-layer`
+**What changed**
+- Created `src/app/pages/SemanticLayerPage.tsx` — semantic layer overview page with collapsible sections
+- Page header: sparkle icon + "Semantic layer" title + "Edit" primary button
+- Left secondary nav (210px): Overview (active, teal), Entities (6), Relationships (6), Metrics (10), Knowledge Graph
+- Main content area: Entities section (6 rows: Customer, Order, Product, Campaign, support ticket, web session — each with attributes/relationships/metrics counts), Relationships section (6 rows with One-to-Many/Many-to-One/One-to-One types), Metrics section (collapsed)
+- Right sidebar (220px): Owner, Created on, Last updated, Last updated by (all with Antonio avatar), Manage privileges link, Datasets included (6 iceberg tables)
+- All sections are collapsible via chevron toggle
+- LeftNav Semantic Layer item now links to `/semantic-layer` with active state support
+- Added `/semantic-layer` route to `routes.ts`
+
+**Why**
+User requested Figma node `162:87985` (AI-semantic-layer file) implemented as the Semantic Layer nav destination.
+
+---
+
+## 2026-03-15 · @diogoluxo + Claude Code
+
+### SQL Runner page — Implement from Figma (node `7978:139494`) at `/new-query`
+**What changed**
+- Created `src/app/pages/NewQueryPage.tsx` — full SQL Runner workspace matching Figma design
+- Left panel (272px): Data/Scripts tabs with collapse `←` button, All/Starred(0)/Name-sort sub-header, search, dataset tree with column-level type badges (`#` numeric, `ab` text, `⊡` datetime)
+- Tab bar: multiple timestamp-based tabs with close buttons, functional `+` add-tab, wiki icon on right
+- Action header: Run | Preview | Engine selector | Hide SQL pane | Settings | Save as view (dropdown)
+- SQL editor: 5 `SELECT * FROM ...` lines, Menlo font, proper syntax coloring
+- Empty state: Dremio narwhal mascot illustration + "Run a Query to Get Started"
+- LeftNav SQL item now links to `/new-query` with active state support
+- Added `/new-query` route to `routes.ts`
+
+**Why**
+User requested Figma node `7978:139494` (SQL Runner sample page) as the SQL nav destination.
+
+---
+
+## 2026-03-15 · @diogoluxo + Claude Code
+
+### Catalog page — Implement from Figma (node `12649:20001`)
+**What changed**
+- Created `src/app/pages/CatalogPage.tsx` — dataset details page with catalog-specific left panel, DatabaseHeader, SQL editor, and populated result table
+- Implemented `src/app/components/DatabaseHeader.tsx` — 64px header with entity icon + name/schema, and tabs: Data (active, teal underline), Details, Lineage, Reflections, Settings gear
+- Updated `src/app/components/LeftNav.tsx` — Catalog nav item now shows active state (teal background, teal icon) when `activePage === "catalog"`
+- Added `/catalog` route to `src/app/routes.ts`
+- Catalog left panel includes Data/Scripts tabs, All/Starred(0) sub-tabs, search field, and full namespace/folder/table tree matching the Figma dataset tree
+- Main section reuses the SQL Runner layout: TabBar → ActionHeader → ContextBar → SQL editor → ResultActionBar (with real data: 21 columns, 1200 rows, 1s) → Result table
+
+**Why**
+User requested Figma node `12649:20001` (main design system file) implemented as the Catalog page. The page is a "dataset details" view showing a database catalog tree alongside the SQL Runner workspace.
+
+---
+
+## 2026-03-15 · @diogoluxo + Claude Code
+
+### HomePage — Update to final design from Figma (node `12400:79817`) + AI agent navigation
+**What changed**
+- "Welcome to Dremio!" gradient heading (32px semibold, teal→green→yellow-green gradient)
+- Prompt box: 80px tall, teal border `#299fb1`, subtle shadow, gradient placeholder text
+- Suggestion chips: plain white rounded pills with AI spark icon, separated by vertical hairline dividers (no chip borders)
+- Get Started cards: gradient backgrounds matching Figma (`white→#FFF9EF` for Add Data, `white→#E7FBF9` for Explore), 138px height, with data source and SQL editor illustrations
+- Quick Actions: 3 cards with bg-[var(--background)] icon containers, correct Figma icons
+- TopNav: added "AI agent" button (teal border, spark icon) linking to `/ai-agent`
+- AI Agent page now accessible at `/ai-agent`; Home nav item in LeftNav links back to `/`
+
+**Why**
+User requested the final Figma design (main design system file, node `12400:79817`) and incremental AI agent page access. TopNav updated to match Figma spec with the AI agent CTA button.
+
+---
+
+## 2026-03-15 · @diogoluxo + Claude Code
+
+### HomePage — Implement from Figma (node `7957:13822`)
+**What changed**
+- Created `src/app/pages/HomePage.tsx` — full home page with AI prompt, Get Started cards, and Quick Actions
+- AI prompt bar: teal-bordered input with gradient placeholder text, send button, and 3 suggestion chips
+- "Get Started" section: two side-by-side cards (Add Data with connector illustration, Explore with Sample Data with mini dashboard illustration)
+- "Quick Actions" section: three cards (Run Queries, Add Users, Deep Dive with Dremio University) each with icon + title + description
+- Updated `LeftNav.tsx` to accept `activePage` prop — Home nav item shows active state (teal background) when on `/`
+- Added `/` route → `HomePage`, moved AI Agent to `/ai-agent` in `routes.ts`
+
+**Why**
+New home page design was specified in Figma (file `EewwUz0PTD0TY5t3KCEDaO`, node `7957:13822`). Implemented using design tokens and existing components.
+
+---
+
 ## 2026-03-14 · @diogoluxo + Claude Code
 
 ### Scaffold all missing Figma components locally — 50 stub files

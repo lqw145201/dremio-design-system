@@ -698,6 +698,76 @@ function CostManagementContent() {
   );
 }
 
+// ─── AI Configurations Content ───────────────────────────────────────────────
+
+function AiConfigurationsContent() {
+  return (
+    <div className="flex flex-col flex-1 h-full overflow-hidden bg-card">
+      <PageHeader
+        icon={<IconSettingsAiConfigurations size={24} className="text-foreground" />}
+        title="AI Configurations"
+      />
+      <div className="flex flex-col gap-[16px] flex-1 overflow-y-auto p-[16px]" style={{ backgroundColor: "var(--background)" }}>
+        {/* Section title + description */}
+        <div className="flex flex-col gap-[4px]" style={{ maxWidth: 600 }}>
+          <h2 style={{ fontSize: 16, fontWeight: 600, lineHeight: "24px", color: "var(--foreground)" }}>AI</h2>
+          <p style={{ fontSize: 14, lineHeight: "20px", color: "var(--secondary-foreground)" }}>
+            Manage AI model provider configurations for AI features in your organization.
+          </p>
+        </div>
+
+        {/* Provider count + add button */}
+        <div className="flex items-center justify-between" style={{ maxWidth: 600 }}>
+          <span style={{ fontSize: 14, lineHeight: "20px", color: "var(--foreground)" }}>1 provider added</span>
+          <button
+            className="flex items-center gap-[4px] h-[32px] px-[8px] rounded-[4px] transition-colors hover:bg-[var(--background-hover)]"
+            style={{ fontSize: 14, fontWeight: 500, color: "var(--accent)", border: "1px solid var(--border)", background: "var(--card)" }}
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+            Add a model provider
+          </button>
+        </div>
+
+        {/* Provider card */}
+        <div style={{ maxWidth: 600 }}>
+          <div className="flex items-start justify-between">
+            <div className="flex items-center gap-[8px]">
+              <span
+                className="inline-flex items-center px-[8px] rounded-[4px] text-[12px] font-semibold leading-[18px]"
+                style={{ height: 24, border: "1px solid var(--primary)", color: "var(--primary)" }}
+              >
+                Default
+              </span>
+              <span style={{ fontSize: 14, fontWeight: 600, color: "var(--foreground)" }}>Claude_Test</span>
+            </div>
+            <div className="flex items-center gap-[16px]">
+              <button className="text-[14px] leading-[20px] hover:underline" style={{ color: "var(--accent)" }}>edit</button>
+              <button className="text-[14px] leading-[20px] hover:underline" style={{ color: "var(--destructive)" }}>Delete</button>
+            </div>
+          </div>
+          <div className="flex flex-col mt-[8px]">
+            {[
+              { label: "Model provider", value: "Anthropic" },
+              { label: "Default model", value: "Claude 4 Sonnet" },
+              { label: "Allowed models", value: "" },
+              { label: "Organization ID", value: "org-abc123xyz" },
+              { label: "Access key", value: "sk-ant-api03-Ful•••2wAA" },
+            ].map(({ label, value }) => (
+              <div key={label} className="flex items-center" style={{ height: 20, marginBottom: 4 }}>
+                <span style={{ width: 128, fontSize: 14, lineHeight: "20px", color: "var(--secondary-foreground)", flexShrink: 0 }}>{label}</span>
+                <span style={{ fontSize: 14, lineHeight: "20px", color: "var(--foreground)" }}>{value}</span>
+              </div>
+            ))}
+          </div>
+          <div className="h-px mt-[16px]" style={{ background: "var(--muted)" }} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── Coming Soon Placeholder ──────────────────────────────────────────────────
 
 function ComingSoon({ section }: { section: NavItem }) {
@@ -718,25 +788,24 @@ function ComingSoon({ section }: { section: NavItem }) {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-export function OrgSettingsPage() {
-  const [activeId, setActiveId] = useState("cost");
+export function OrgSettingsAiPage() {
+  return <OrgSettingsPage defaultSection="ai" />;
+}
+
+export function OrgSettingsPage({ defaultSection = "cost" }: { defaultSection?: string }) {
+  const [activeId, setActiveId] = useState(defaultSection);
   const activeSection = NAV_ITEMS.find((n) => n.id === activeId)!;
 
   return (
     <div className="flex h-screen w-screen overflow-hidden" style={{ backgroundColor: "var(--background)" }}>
-      {/* Left nav */}
-      <LeftNav />
-
-      {/*
-       * Settings shell — full height, no card wrapper.
-       * Correct pattern: just flex container, flat and full-height.
-       * No margin / border / radius / shadow on this shell div.
-       */}
+      <LeftNav activePage="admin" />
       <div className="flex flex-1 h-full overflow-hidden">
         <SettingsSidebar active={activeId} onSelect={setActiveId} />
 
         {activeId === "cost" ? (
           <CostManagementContent />
+        ) : activeId === "ai" ? (
+          <AiConfigurationsContent />
         ) : (
           <ComingSoon section={activeSection} />
         )}

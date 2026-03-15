@@ -1,4 +1,7 @@
+import { useState, useRef, useEffect } from "react";
+import { Link, useNavigate } from "react-router";
 import svgPaths from "../../imports/svg-vf3gc3o0dr";
+import { IconNavJobs } from "./icons/IconNavJobs";
 
 function Logo() {
   return (
@@ -65,60 +68,133 @@ function NavItem({ icon, label, active, hasBackground, bgColor }: NavItemProps) 
   );
 }
 
-export function LeftNav() {
+export function LeftNav({ activePage = "ai-agent" }: { activePage?: string }) {
+  const [showAdminMenu, setShowAdminMenu] = useState(false);
+  const adminRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!showAdminMenu) return;
+    function handleClick(e: MouseEvent) {
+      if (adminRef.current && !adminRef.current.contains(e.target as Node)) {
+        setShowAdminMenu(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [showAdminMenu]);
+
   return (
     <div className="bg-background flex flex-col items-center justify-between shrink-0 w-[64px] h-full">
       {/* Top section */}
       <div className="flex flex-col gap-[8px] items-center shrink-0 w-full">
         <Logo />
         <div className="flex flex-col gap-[16px] items-center w-full">
-          {/* Home — viewBox 18×19.49, render at natural proportions */}
-          <NavItem
-            label="Home"
-            icon={<svg fill="none" viewBox="0 0 18 19.4945" width="18" height="19">
-              <path d={svgPaths.p156b49c0} fill="var(--secondary-foreground)" />
-            </svg>}
-          />
-          {/* AI Agent - active — viewBox ~20×20 */}
-          <NavItem
-            label="AI Agent"
-            active
-            hasBackground
-            bgColor="rgba(33, 132, 128, 0.1)"
-            icon={<svg fill="none" viewBox="0 0 19.9067 19.9056" width="20" height="20">
-              <path d={svgPaths.p3d8e2800} fill="var(--accent)" />
-            </svg>}
-          />
+          {/* Home */}
+          <Link to="/" className="w-full">
+            <NavItem
+              label="Home"
+              active={activePage === "home"}
+              hasBackground={activePage === "home"}
+              bgColor="rgba(33, 132, 128, 0.15)"
+              icon={<svg fill="none" viewBox="0 0 18 19.4945" width="18" height="19">
+                <path d={svgPaths.p156b49c0} fill={activePage === "home" ? "var(--accent)" : "var(--secondary-foreground)"} />
+              </svg>}
+            />
+          </Link>
+          {/* AI Agent */}
+          <Link to="/ai-agent" className="w-full">
+            <NavItem
+              label="AI Agent"
+              active={activePage === "ai-agent"}
+              hasBackground={activePage === "ai-agent"}
+              bgColor="rgba(33, 132, 128, 0.1)"
+              icon={<svg fill="none" viewBox="0 0 19.9067 19.9056" width="20" height="20">
+                <path d={svgPaths.p3d8e2800} fill="var(--accent)" />
+              </svg>}
+            />
+          </Link>
           {/* Catalog — viewBox 20×16, wider than tall */}
-          <NavItem
-            label="Catalog"
-            icon={<svg fill="none" viewBox="0 0 20 16" width="20" height="16">
-              <path clipRule="evenodd" d={svgPaths.p37aae100} fill="var(--secondary-foreground)" fillRule="evenodd" />
-            </svg>}
-          />
+          <Link to="/catalog" className="w-full">
+            <NavItem
+              label="Catalog"
+              active={activePage === "catalog"}
+              hasBackground={activePage === "catalog"}
+              bgColor="rgba(33, 132, 128, 0.15)"
+              icon={<svg fill="none" viewBox="0 0 20 16" width="20" height="16">
+                <path clipRule="evenodd" d={svgPaths.p37aae100} fill={activePage === "catalog" ? "var(--accent)" : "var(--secondary-foreground)"} fillRule="evenodd" />
+              </svg>}
+            />
+          </Link>
           {/* SQL — viewBox 20×16 */}
-          <NavItem
-            label="SQL"
-            icon={<svg fill="none" viewBox="0 0 20 16" width="20" height="16">
-              <path d={svgPaths.p35ae5e80} fill="var(--secondary-foreground)" />
-              <path d={svgPaths.p90a2780} fill="var(--secondary-foreground)" />
-              <path clipRule="evenodd" d={svgPaths.p350c4d00} fill="var(--secondary-foreground)" fillRule="evenodd" />
-            </svg>}
-          />
-          {/* Semantic Layer — viewBox ~20×20 */}
-          <NavItem
-            label="Sematic Layer"
-            icon={<svg fill="none" viewBox="0 0 19.9996 20.0119" width="20" height="20">
-              <path d={svgPaths.p2876bf70} fill="var(--secondary-foreground)" />
-            </svg>}
-          />
-          {/* Admin — viewBox 18.72×19.5 */}
-          <NavItem
-            label="Admin"
-            icon={<svg fill="none" viewBox="0 0 18.7241 19.4995" width="19" height="19">
-              <path d={svgPaths.p1258cf0} fill="var(--secondary-foreground)" />
-            </svg>}
-          />
+          <Link to="/new-query" className="w-full">
+            <NavItem
+              label="SQL"
+              active={activePage === "sql"}
+              hasBackground={activePage === "sql"}
+              bgColor="rgba(33, 132, 128, 0.15)"
+              icon={<svg fill="none" viewBox="0 0 20 16" width="20" height="16">
+                <path d={svgPaths.p35ae5e80} fill={activePage === "sql" ? "var(--accent)" : "var(--secondary-foreground)"} />
+                <path d={svgPaths.p90a2780} fill={activePage === "sql" ? "var(--accent)" : "var(--secondary-foreground)"} />
+                <path clipRule="evenodd" d={svgPaths.p350c4d00} fill={activePage === "sql" ? "var(--accent)" : "var(--secondary-foreground)"} fillRule="evenodd" />
+              </svg>}
+            />
+          </Link>
+          {/* Jobs */}
+          <Link to="/jobs" className="w-full">
+            <NavItem
+              label="Jobs"
+              active={activePage === "jobs"}
+              hasBackground={activePage === "jobs"}
+              bgColor="rgba(33, 132, 128, 0.15)"
+              icon={<IconNavJobs size={24} className={activePage === "jobs" ? "text-[var(--accent)]" : "text-[var(--secondary-foreground)]"} />}
+            />
+          </Link>
+          {/* Admin — popup menu for Project / Organization */}
+          <div ref={adminRef} className="relative w-full">
+            <button
+              className="w-full"
+              onClick={() => setShowAdminMenu((v) => !v)}
+            >
+              <NavItem
+                label="Admin"
+                active={activePage === "admin"}
+                hasBackground={activePage === "admin"}
+                bgColor="rgba(33, 132, 128, 0.15)"
+                icon={<svg fill="none" viewBox="0 0 18.7241 19.4995" width="19" height="19">
+                  <path d={svgPaths.p1258cf0} fill={activePage === "admin" ? "var(--accent)" : "var(--secondary-foreground)"} />
+                </svg>}
+              />
+            </button>
+            {showAdminMenu && (
+              <div
+                className="absolute z-50 flex flex-col rounded-[6px] overflow-hidden"
+                style={{
+                  left: "calc(100% + 4px)",
+                  top: 0,
+                  minWidth: 140,
+                  background: "var(--card)",
+                  border: "1px solid var(--border)",
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.12)",
+                }}
+              >
+                <button
+                  className="flex items-center px-[12px] h-[36px] text-left text-[14px] leading-[20px] hover:bg-[var(--background-hover)] transition-colors w-full"
+                  style={{ color: "var(--foreground)" }}
+                  onClick={() => { setShowAdminMenu(false); navigate("/admin"); }}
+                >
+                  Project
+                </button>
+                <button
+                  className="flex items-center px-[12px] h-[36px] text-left text-[14px] leading-[20px] hover:bg-[var(--background-hover)] transition-colors w-full"
+                  style={{ color: "var(--foreground)" }}
+                  onClick={() => { setShowAdminMenu(false); navigate("/org-settings"); }}
+                >
+                  Organization
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       {/* Bottom section */}
