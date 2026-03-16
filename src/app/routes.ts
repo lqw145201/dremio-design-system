@@ -38,7 +38,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/org-settings",
-    Component: OrgSettingsAiPage,
+    Component: OrgSettingsPage,
   },
   {
     path: "/settings/cost-management",

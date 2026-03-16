@@ -37,6 +37,7 @@ import {
   IconWarning,
   IconDatasetDownload,
   IconSettings,
+  IconCopy,
 } from "../components/icons";
 
 // ─── Nav Items ────────────────────────────────────────────────────────────────
@@ -768,6 +769,185 @@ function AiConfigurationsContent() {
   );
 }
 
+// ─── General Information Content ──────────────────────────────────────────────
+
+function GeneralInformationContent() {
+  const [orgName, setOrgName] = useState("Org_name");
+  const orgId = "5d1cccfd-abbb-429a-984e-fe599df96fd5";
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(orgId);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="flex flex-col flex-1 h-full overflow-hidden bg-card">
+      <PageHeader
+        icon={<IconInformation size={24} className="text-foreground" />}
+        title="General Information"
+      />
+      <div
+        className="flex flex-col flex-1 overflow-y-auto"
+        style={{ backgroundColor: "var(--background)", padding: "24px" }}
+      >
+        <div className="flex flex-col gap-[24px]" style={{ maxWidth: 560 }}>
+          {/* Organization Name */}
+          <div className="flex flex-col gap-[6px]">
+            <label
+              style={{
+                fontSize: "14px",
+                fontWeight: 400,
+                lineHeight: "20px",
+                color: "var(--foreground)",
+              }}
+            >
+              Organization Name
+            </label>
+            <input
+              type="text"
+              value={orgName}
+              onChange={(e) => setOrgName(e.target.value)}
+              className="w-full bg-card focus:outline-none"
+              style={{
+                height: "36px",
+                padding: "0 12px",
+                fontSize: "14px",
+                lineHeight: "20px",
+                color: "var(--foreground)",
+                border: "1px solid var(--border)",
+                borderRadius: "4px",
+              }}
+            />
+          </div>
+
+          {/* Organization ID */}
+          <div className="flex flex-col gap-[6px]">
+            <label
+              style={{
+                fontSize: "14px",
+                fontWeight: 400,
+                lineHeight: "20px",
+                color: "var(--foreground)",
+              }}
+            >
+              Organization ID
+            </label>
+            <div className="flex items-center justify-between">
+              <span
+                style={{
+                  fontSize: "14px",
+                  lineHeight: "20px",
+                  color: "var(--foreground)",
+                  fontFamily: "'JetBrains Mono', 'SF Mono', Consolas, monospace",
+                }}
+              >
+                {orgId}
+              </span>
+              <button
+                onClick={handleCopy}
+                className="flex items-center justify-center shrink-0 rounded cursor-pointer transition-colors hover:bg-muted"
+                style={{
+                  width: "32px",
+                  height: "32px",
+                  border: "none",
+                  background: "transparent",
+                }}
+                aria-label="Copy Organization ID"
+              >
+                <IconCopy size={20} className="text-secondary-foreground" />
+              </button>
+            </div>
+          </div>
+
+          {/* Organization created date */}
+          <div className="flex flex-col gap-[6px]">
+            <label
+              style={{
+                fontSize: "14px",
+                fontWeight: 400,
+                lineHeight: "20px",
+                color: "var(--foreground)",
+              }}
+            >
+              Organization created date
+            </label>
+            <span
+              style={{
+                fontSize: "14px",
+                lineHeight: "20px",
+                color: "var(--foreground)",
+              }}
+            >
+              Nov 13, 2025 10:26:00 AM
+            </span>
+          </div>
+
+          {/* Default Project */}
+          <div className="flex flex-col gap-[6px]">
+            <label
+              style={{
+                fontSize: "14px",
+                fontWeight: 400,
+                lineHeight: "20px",
+                color: "var(--foreground)",
+              }}
+            >
+              Default Project
+            </label>
+            <div
+              className="relative w-full"
+              style={{
+                height: "36px",
+                border: "1px solid var(--border)",
+                borderRadius: "4px",
+                backgroundColor: "var(--card)",
+              }}
+            >
+              <select
+                className="w-full h-full appearance-none bg-transparent cursor-pointer focus:outline-none"
+                style={{
+                  padding: "0 32px 0 12px",
+                  fontSize: "14px",
+                  lineHeight: "20px",
+                  color: "var(--foreground)",
+                }}
+                defaultValue="test-project"
+              >
+                <option value="test-project">Test Project</option>
+              </select>
+              <svg
+                className="absolute pointer-events-none"
+                style={{ right: "12px", top: "50%", transform: "translateY(-50%)" }}
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                fill="none"
+              >
+                <path
+                  d="M3 4.5L6 7.5L9 4.5"
+                  stroke="var(--secondary-foreground)"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+          </div>
+
+          {/* Save button — primary action for this page */}
+          <div>
+            <Button variant="default" size="sm">
+              Save
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── Coming Soon Placeholder ──────────────────────────────────────────────────
 
 function ComingSoon({ section }: { section: NavItem }) {
@@ -792,7 +972,7 @@ export function OrgSettingsAiPage() {
   return <OrgSettingsPage defaultSection="ai" />;
 }
 
-export function OrgSettingsPage({ defaultSection = "cost" }: { defaultSection?: string }) {
+export function OrgSettingsPage({ defaultSection = "general" }: { defaultSection?: string }) {
   const [activeId, setActiveId] = useState(defaultSection);
   const activeSection = NAV_ITEMS.find((n) => n.id === activeId)!;
 
@@ -802,7 +982,9 @@ export function OrgSettingsPage({ defaultSection = "cost" }: { defaultSection?: 
       <div className="flex flex-1 h-full overflow-hidden">
         <SettingsSidebar active={activeId} onSelect={setActiveId} />
 
-        {activeId === "cost" ? (
+        {activeId === "general" ? (
+          <GeneralInformationContent />
+        ) : activeId === "cost" ? (
           <CostManagementContent />
         ) : activeId === "ai" ? (
           <AiConfigurationsContent />

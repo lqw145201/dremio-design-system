@@ -5,7 +5,7 @@ import { IconNavJobs } from "./icons/IconNavJobs";
 
 function Logo() {
   return (
-    <div className="flex items-center justify-center w-full px-[8px] py-[16px]">
+    <Link to="/" className="flex items-center justify-center w-full px-[8px] py-[16px]">
       <div className="relative shrink-0 size-[32px]">
         <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 32 32">
           <g>
@@ -26,7 +26,7 @@ function Logo() {
           </g>
         </svg>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -68,7 +68,7 @@ function NavItem({ icon, label, active, hasBackground, bgColor }: NavItemProps) 
   );
 }
 
-export function LeftNav({ activePage = "ai-agent" }: { activePage?: string }) {
+export function LeftNav({ activePage = "home" }: { activePage?: string }) {
   const [showAdminMenu, setShowAdminMenu] = useState(false);
   const adminRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -99,18 +99,6 @@ export function LeftNav({ activePage = "ai-agent" }: { activePage?: string }) {
               bgColor="rgba(33, 132, 128, 0.15)"
               icon={<svg fill="none" viewBox="0 0 18 19.4945" width="18" height="19">
                 <path d={svgPaths.p156b49c0} fill={activePage === "home" ? "var(--accent)" : "var(--secondary-foreground)"} />
-              </svg>}
-            />
-          </Link>
-          {/* AI Agent */}
-          <Link to="/ai-agent" className="w-full">
-            <NavItem
-              label="AI Agent"
-              active={activePage === "ai-agent"}
-              hasBackground={activePage === "ai-agent"}
-              bgColor="rgba(33, 132, 128, 0.1)"
-              icon={<svg fill="none" viewBox="0 0 19.9067 19.9056" width="20" height="20">
-                <path d={svgPaths.p3d8e2800} fill="var(--accent)" />
               </svg>}
             />
           </Link>
